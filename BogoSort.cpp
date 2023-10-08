@@ -13,10 +13,22 @@ bool isSorted(const std::vector<int>& arr) {
     return true;
 }
 
+// Function to perform Fisher-Yates shuffle
+void fisherYatesShuffle(std::vector<int>& arr) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    for (int i = arr.size() - 1; i > 0; --i) {
+        std::uniform_int_distribution<int> dist(0, i);
+        int j = dist(gen);
+        std::swap(arr[i], arr[j]);
+    }
+}
+
 // Function to perform BogoSort
 void bogoSort(std::vector<int>& arr) {
     while (!isSorted(arr)) {
-        std::random_shuffle(arr.begin(), arr.end());
+        fisherYatesShuffle(arr);
     }
 }
 
